@@ -15,4 +15,7 @@
 -->
 <resources>
     <string name="app_name">Quake Report</string>
+    <string name="color_scheme">Dark Color Scheme</string>
+    <string name="query_api">Optimize Results</string>
+    <string name="quit">Quit</string>
 </resources>

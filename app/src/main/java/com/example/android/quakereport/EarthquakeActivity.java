@@ -18,6 +18,9 @@ package com.example.android.quakereport;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
@@ -27,19 +30,42 @@ public class EarthquakeActivity extends AppCompatActivity {
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
+        fakedata();
+    }
 
-        // Create a fake list of earthquake locations.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.dark_scheme:
+                return true;
+
+            case R.id.quit:
+                finish();
+                return true;
+
+            case R.id.count:
+                return true;
+
+            default: return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void fakedata(){
+
         ArrayList<Earthquake> earthquakes = new ArrayList<>();
-//        earthquakes.add("San Francisco");
-//        earthquakes.add("London");
-//        earthquakes.add("Tokyo");
-//        earthquakes.add("Mexico City");
-//        earthquakes.add("Moscow");
-//        earthquakes.add("Rio de Janeiro");
-//        earthquakes.add("Paris");
+
 
         earthquakes.add(new Earthquake((3.5f),"San Francisco","Jan 20,2020"));
         earthquakes.add(new Earthquake((4.9f),"London","Dec 24,2012"));
@@ -52,13 +78,11 @@ public class EarthquakeActivity extends AppCompatActivity {
         earthquakes.add(new Earthquake((2.2f),"Sydney","Oct 20,2020"));
         earthquakes.add(new Earthquake((3.5f),"Delhi","May 20,2019"));
 
-        // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
-        // Create a new {@link ArrayAdapter} of earthquakes
         EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this,0,earthquakes);
-        // Set the adapter on the {@link ListView}
-        // so the list can be populated in the user interface
         earthquakeListView.setAdapter(earthquakeAdapter);
+
     }
+
 }
