@@ -16,6 +16,7 @@
 package com.example.android.quakereport;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -55,6 +56,8 @@ public class EarthquakeActivity extends AppCompatActivity {
                 return true;
 
             case R.id.count:
+                Intent intent = new Intent(EarthquakeActivity.this,Settings.class);
+                startActivity(intent);
                 return true;
 
             default: return super.onOptionsItemSelected(item);
