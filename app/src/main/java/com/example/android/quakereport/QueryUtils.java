@@ -47,6 +47,7 @@ public final class QueryUtils {
                  double mag = properties.getDouble("mag");
                  String location = properties.getString("place");
                  long time = properties.getLong("time");
+                 String url = properties.getString("url");
 
                  DecimalFormat decimalFormat = new DecimalFormat("0.0");
                  String formatted = decimalFormat.format(mag);

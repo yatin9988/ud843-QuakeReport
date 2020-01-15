@@ -44,7 +44,8 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         magnitude.setText(earthquake.getMagnitude());
         offset.setText(earthquake.getOffset());
         primary.setText(earthquake.getPrimary());
-        date.setText(earthquake.getTime()+"");
+        date.setText(earthquake.getDate());
+        time.setText(earthquake.getTime());
 
         return convertView;
     }
