@@ -1,5 +1,6 @@
 package com.example.android.quakereport;
 
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 
 import org.json.JSONArray;
