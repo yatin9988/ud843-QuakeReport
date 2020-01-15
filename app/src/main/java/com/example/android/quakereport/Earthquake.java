@@ -2,45 +2,41 @@ package com.example.android.quakereport;
 
 public class Earthquake {
 
-    private float magnitude;
-    private String location;
+    private String magnitude;
+    private String offset;
+    private String primary;
+    private String date;
     private String time;
 
-    // default constructor
-    public Earthquake(){
-
-    }
-
     // parametrized constructor
-    public Earthquake(float magnitude,String location,String time){
+    public Earthquake(String magnitude,String offset,String primary,String date,String time){
 
         this.magnitude = magnitude;
-        this.location = location;
+        this.offset = offset;
+        this.primary = primary;
         this.time = time;
+        this.date = date;
+
     }
 
-    public void setMagnitude(int magnitude){
-        this.magnitude = magnitude;
-    }
-
-    public void setLocation(String location){
-        this.location = location;
-    }
-
-    public void setTime(String time){
-        this.time = time;
-    }
-
-    public float getMagnitude(){
+    public String getMagnitude(){
         return this.magnitude;
     }
 
-    public String getLocation(){
-        return this.location;
+    public String getOffset(){
+        return this.offset;
+    }
+
+    public String getPrimary(){
+        return this.primary;
     }
 
     public String getTime(){
         return this.time;
+    }
+
+    public String getDate(){
+        return this.date;
     }
 
 }

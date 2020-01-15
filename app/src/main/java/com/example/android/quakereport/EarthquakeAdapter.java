@@ -27,14 +27,17 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         }
 
         TextView magnitude = (TextView) convertView.findViewById(R.id.magnitude);
-        TextView location = (TextView) convertView.findViewById(R.id.location);
+        TextView offset = (TextView) convertView.findViewById(R.id.offset);
+        TextView primary = (TextView) convertView.findViewById(R.id.primary);
+        TextView date = (TextView) convertView.findViewById(R.id.date);
         TextView time = (TextView) convertView.findViewById(R.id.time);
 
         Earthquake earthquake = getItem(position);
 
-        magnitude.setText(earthquake.getMagnitude()+"");
-        location.setText(earthquake.getLocation());
-        time.setText(earthquake.getTime());
+        magnitude.setText(earthquake.getMagnitude());
+        offset.setText(earthquake.getOffset());
+        primary.setText(earthquake.getPrimary());
+        date.setText(earthquake.getTime()+"");
 
         return convertView;
     }

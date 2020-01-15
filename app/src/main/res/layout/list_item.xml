@@ -15,16 +15,32 @@
     </TextView>
 
     <TextView
+        android:text="88km N of"
+        android:layout_weight="1"
+        android:id="@+id/offset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <TextView
         android:text="Mexico City"
         android:layout_weight="1"
-        android:id="@+id/location"
+        android:id="@+id/primary"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
     </TextView>
 
     <TextView
         android:layout_weight="1"
-        android:text="Jan 14,2020"
+        android:text="Jan 14, 2020"
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <TextView
+        android:layout_weight="1"
+        android:text="04:30 PM"
         android:id="@+id/time"
         android:layout_width="0dp"
         android:layout_height="wrap_content">

@@ -40,7 +40,10 @@ public class EarthquakeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
-        fakedata();
+        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthQuakes();
+        EarthquakeAdapter adapter = new EarthquakeAdapter(EarthquakeActivity.this,0,earthquakes);
+        ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -62,29 +65,6 @@ public class EarthquakeActivity extends AppCompatActivity {
 
             default: return super.onOptionsItemSelected(item);
         }
-
-    }
-
-    public void fakedata(){
-
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
-
-
-        earthquakes.add(new Earthquake((3.5f),"San Francisco","Jan 20,2020"));
-        earthquakes.add(new Earthquake((4.9f),"London","Dec 24,2012"));
-        earthquakes.add(new Earthquake((2.4f),"Mexico City","Feb 20,2010"));
-        earthquakes.add(new Earthquake((4.0f),"Mumbai","Jan 20,2019"));
-        earthquakes.add(new Earthquake((2.5f),"Abu Dhabi","Mar 20,2017"));
-        earthquakes.add(new Earthquake((1.9f),"France","Apr 20,2013"));
-        earthquakes.add(new Earthquake((3.7f),"Texas","Jun 20,2015"));
-        earthquakes.add(new Earthquake((5.0f),"Berlin","Nov 20,2018"));
-        earthquakes.add(new Earthquake((2.2f),"Sydney","Oct 20,2020"));
-        earthquakes.add(new Earthquake((3.5f),"Delhi","May 20,2019"));
-
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
-
-        EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this,0,earthquakes);
-        earthquakeListView.setAdapter(earthquakeAdapter);
 
     }
 
