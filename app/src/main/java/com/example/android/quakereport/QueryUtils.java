@@ -60,7 +60,7 @@ public final class QueryUtils {
                  String dates = date(dateObj);
                  String times = time(dateObj);
 
-                 Earthquake earthquake = new Earthquake(formatted,offset,primary,dates,times);
+                 Earthquake earthquake = new Earthquake(formatted,offset,primary,dates,times,url);
                  earthquakes.add(earthquake);
 
              }

@@ -17,11 +17,14 @@ package com.example.android.quakereport;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
@@ -40,10 +43,24 @@ public class EarthquakeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
-        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthQuakes();
+        final ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthQuakes();
         EarthquakeAdapter adapter = new EarthquakeAdapter(EarthquakeActivity.this,0,earthquakes);
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int index, long l) {
+
+                Earthquake earthquake = earthquakes.get(index);
+                Uri uri = Uri.parse(earthquake.getUrl());
+                // provided action and source
+                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     @Override
