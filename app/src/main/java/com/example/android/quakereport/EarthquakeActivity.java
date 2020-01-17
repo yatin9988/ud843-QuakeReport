@@ -36,9 +36,9 @@ import java.util.List;
 public class EarthquakeActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
-    private static final String URL="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    private static final String URL="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=3&limit=100&starttime=2020-01-01&endtime=2020-01-02";
 
-    private class EarthQuakeAsyncTask extends AsyncTask<String,Integer,ArrayList<Earthquake>>{
+    public class EarthQuakeAsyncTask extends AsyncTask<String,Integer,ArrayList<Earthquake>>{
 
         @Override
         protected ArrayList<Earthquake> doInBackground(String... strings) {

@@ -21,8 +21,8 @@
     <string name="quit">Quit</string>
     <string name="defaultt">Default count is 100</string>
     <string name="defaultsd">Default start date is 1 Jan 2020</string>
-    <string name="defaulted">Default end date is Today</string>
-    <string name="minmagnitude">Min-Magnitude</string>
+    <string name="defaulted">Default end date is 2 Jan 2020</string>
+    <string name="minmagnitude">Min-Magnitude is 3</string>
     <string name="asc">Ascending Order</string>
     <string name="dsc">Descending Order</string>
     <string name="order_by_time">Order by Time</string>

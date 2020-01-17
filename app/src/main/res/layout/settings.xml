@@ -34,7 +34,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/magnitude"
+        android:id="@+id/min_magnitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/minmagnitude"
@@ -51,45 +51,22 @@
     </TextView>
 
         <RadioGroup
+            android:focusable="true"
+            android:id="@+id/time"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RadioButton
+                android:id="@+id/time_asc"
                 android:text="@string/asc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </RadioButton>
 
             <RadioButton
-                android:text="@string/dsc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </RadioButton>
-
-        </RadioGroup>
-
-    <TextView
-        android:layout_marginTop="20dp"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/order_by_magnitude">
-    </TextView>
-
-        <RadioGroup
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:text="@string/asc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </RadioButton>
-
-            <RadioButton
+                android:checked="true"
+                android:id="@+id/time_dsc"
                 android:text="@string/dsc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
