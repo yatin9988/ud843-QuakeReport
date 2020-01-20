@@ -36,7 +36,7 @@ import java.util.List;
 public class EarthquakeActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
-    private static final String URL="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=3&limit=100&starttime=2020-01-01&endtime=2020-01-02";
+    private static final String URL="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=3.2&limit=100";
 
     public class EarthQuakeAsyncTask extends AsyncTask<String,Integer,ArrayList<Earthquake>>{
 
@@ -74,38 +74,10 @@ public class EarthquakeActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-        return true;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
         new EarthQuakeAsyncTask().execute(URL);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-
-            case R.id.dark_scheme:
-                return true;
-
-            case R.id.quit:
-                finish();
-                return true;
-
-            case R.id.count:
-                Intent intent = new Intent(EarthquakeActivity.this,Settings.class);
-                startActivity(intent);
-                return true;
-
-            default: return super.onOptionsItemSelected(item);
-        }
 
     }
 
