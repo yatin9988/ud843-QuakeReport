@@ -20,9 +20,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,31 +41,51 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
     public static final String URL="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=3.2&limit=100";
+    private static EarthquakeAdapter earthquakeAdapter;
+    private static ListView listView;
 
-    public class EarthQuakeAsyncTask extends AsyncTask<String,Integer,ArrayList<Earthquake>>{
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.earthquake_activity);
 
-        @Override
-        protected void onPostExecute(ArrayList<Earthquake> earthquakes) {
+        listView = (ListView) findViewById(R.id.list);
+        earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this,0,new ArrayList<Earthquake>());
+        listView.setAdapter(earthquakeAdapter);
 
-            EarthquakeAdapter adapter = new EarthquakeAdapter(EarthquakeActivity.this,0,earthquakes);
-            ListView listView = (ListView) findViewById(R.id.list);
-            listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Earthquake earthquake = (Earthquake) adapterView.getItemAtPosition(i);
+                String url = earthquake.getUrl();
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(intent);
+            }
+        });
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int index, long l) {
+        getSupportLoaderManager().initLoader(0,null,this);
+    }
+    
 
-                    Earthquake earthquake = (Earthquake) parent.getItemAtPosition(index);
-                    Uri uri = Uri.parse(earthquake.getUrl());
-                    // provided action and source
-                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                    startActivity(intent);
-
-                }
-            });
-
-
-        }
+    @Override
+    public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
+        return new EarthQuakeLoader(EarthquakeActivity.this);
     }
 
+    @Override
+    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> data) {
+        // check if valid data is returned
+        if(data!=null && !data.isEmpty())
+            earthquakeAdapter.addAll(data);
+        else
+            Log.e(LOG_TAG,"invalid result");
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        // frees the memory resources of the adapater or add a new blank arraylist
+        // both options work
+        earthquakeAdapter.clear();
+    }
 }
