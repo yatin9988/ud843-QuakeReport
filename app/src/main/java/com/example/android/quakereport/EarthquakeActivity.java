@@ -81,8 +81,14 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // check if valid data is returned
         if(data!=null && !data.isEmpty())
             earthquakeAdapter.addAll(data);
-        else
-            Log.e(LOG_TAG,"invalid result");
+
+        // if after the load due to some erroe from the server or any error in the code
+        // or if there are no recent earthquakes an empty view is set
+        else{
+            View view = findViewById(R.id.noearthquake);
+            listView.setEmptyView(view);
+        }
+
     }
 
     @Override
