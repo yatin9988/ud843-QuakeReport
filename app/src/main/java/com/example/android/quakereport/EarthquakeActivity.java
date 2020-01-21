@@ -64,9 +64,12 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             }
         });
 
+        // during the entire lifecycle of the loader
+        // a loader with id 0 is only created once
+        // it is one of the reasons of using asyncloader over asynctask
         getSupportLoaderManager().initLoader(0,null,this);
     }
-    
+
 
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
