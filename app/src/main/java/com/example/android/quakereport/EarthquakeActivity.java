@@ -17,24 +17,20 @@ package com.example.android.quakereport;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,33 +41,42 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     private static EarthquakeAdapter earthquakeAdapter;
     private static ListView listView;
     private static ProgressBar progressBar;
+    private static TextView textView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        listView = (ListView) findViewById(R.id.list);
-        earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this,0,new ArrayList<Earthquake>());
-        listView.setAdapter(earthquakeAdapter);
+        textView = (TextView) findViewById(R.id.no_internet);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+        if (!isConnected) {
+            textView.setText("NO INTERNET CONNECTION");
+        } else {
+            listView = (ListView) findViewById(R.id.list);
+            earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this, 0, new ArrayList<Earthquake>());
+            listView.setAdapter(earthquakeAdapter);
 
-        progressBar = (ProgressBar)findViewById(R.id.spinner);
+            progressBar = (ProgressBar) findViewById(R.id.spinner);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Earthquake earthquake = (Earthquake) adapterView.getItemAtPosition(i);
-                String url = earthquake.getUrl();
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                startActivity(intent);
-            }
-        });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Earthquake earthquake = (Earthquake) adapterView.getItemAtPosition(i);
+                    String url = earthquake.getUrl();
+                    Uri uri = Uri.parse(url);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            });
 
-        // during the entire lifecycle of the loader
-        // a loader with id 0 is only created once
-        // it is one of the reasons of using asyncloader over asynctask
-        getSupportLoaderManager().initLoader(0,null,this);
+            // during the entire lifecycle of the loader
+            // a loader with id 0 is only created once
+            // it is one of the reasons of using asyncloader over asynctask
+            getSupportLoaderManager().initLoader(0, null, this);
+        }
     }
 
 
