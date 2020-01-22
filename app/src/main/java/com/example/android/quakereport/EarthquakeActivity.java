@@ -32,6 +32,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     public static final String URL="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=3.2&limit=100";
     private static EarthquakeAdapter earthquakeAdapter;
     private static ListView listView;
+    private static ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         listView = (ListView) findViewById(R.id.list);
         earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this,0,new ArrayList<Earthquake>());
         listView.setAdapter(earthquakeAdapter);
+
+        progressBar = (ProgressBar)findViewById(R.id.spinner);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,12 +83,15 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> data) {
         // check if valid data is returned
-        if(data!=null && !data.isEmpty())
+        if(data!=null && !data.isEmpty()) {
+            progressBar.setVisibility(View.GONE);
             earthquakeAdapter.addAll(data);
+        }
 
         // if after the load due to some erroe from the server or any error in the code
         // or if there are no recent earthquakes an empty view is set
         else{
+            progressBar.setVisibility(View.GONE);
             View view = findViewById(R.id.noearthquake);
             listView.setEmptyView(view);
         }

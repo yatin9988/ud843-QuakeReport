@@ -27,4 +27,5 @@
     <string name="dsc">Descending Order</string>
     <string name="order_by_time">Order by Time</string>
     <string name="order_by_magnitude">Order by Magnitude</string>
+    <string name="no_earthquake">No EarthQuakes Found</string>
 </resources>

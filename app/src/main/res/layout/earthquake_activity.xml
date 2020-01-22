@@ -15,32 +15,45 @@
 -->
 <!-- Layout for a list of earthquakes -->
 
-<LinearLayout
-    android:orientation="vertical"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ListView
+        android:id="@+id/list"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
 <RelativeLayout
+
+    android:visibility="invisible"
     android:id="@+id/noearthquake"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
+        android:textColor="#000000"
+        android:text="@string/no_earthquake"
+        android:textAllCaps="true"
+        android:textSize="20sp"
         android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     </TextView>
 
 </RelativeLayout>
 
-<ListView
-    android:id="@+id/list"
-    android:divider="@null"
-    android:dividerHeight="0dp"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-</ListView>
+<ProgressBar
+    android:layout_centerInParent="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/spinner">
+</ProgressBar>
 
-</LinearLayout>
+
+</RelativeLayout>
