@@ -25,10 +25,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,24 +44,29 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     private static ListView listView;
     private static ProgressBar progressBar;
     private static TextView textView;
+    private static RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
+        progressBar = (ProgressBar) findViewById(R.id.spinner);
 
         textView = (TextView) findViewById(R.id.no_internet);
+        relativeLayout = (RelativeLayout) findViewById(R.id.noearthquake);
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        Log.i(LOG_TAG,networkInfo+"yatin");
         boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
         if (!isConnected) {
+            relativeLayout.setVisibility(View.VISIBLE);
             textView.setText("NO INTERNET CONNECTION");
+            progressBar.setVisibility(View.GONE);
         } else {
             listView = (ListView) findViewById(R.id.list);
             earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this, 0, new ArrayList<Earthquake>());
             listView.setAdapter(earthquakeAdapter);
 
-            progressBar = (ProgressBar) findViewById(R.id.spinner);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
